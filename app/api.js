@@ -19,9 +19,7 @@ module.exports=function(app){
 		var student=new Student();
 
 		student.name=request.body.name;
-		student.gender=request.body.gender;
-		student.yearOfStudy=request.body.yearOfStudy
-		student.faculty=request.body.faculty
+		
 
 		student.save(function(error){
 			if(error){
