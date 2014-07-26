@@ -5,8 +5,8 @@ var studentSchema = new Schema({
 	name: String,
 	gender: String,
 	yearOfStudy: Number,
-	faculty: String
-	friends: Array
+	faculty: String,
+	friends: Array,
 	freeTimes: Array
 })
 

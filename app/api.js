@@ -29,8 +29,8 @@ module.exports=function(app){
 				});
 			}
 
-			response.json({message:'Friend made!',success:true}):
-			})
+			response.json({message:'Friend made!',success:true})
+		})
 		
 
 		
