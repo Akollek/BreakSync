@@ -6,6 +6,7 @@ var studentSchema = new Schema({
 	gender: String,
 	yearOfStudy: Number,
 	faculty: String
+	friends: Array
 })
 
 
