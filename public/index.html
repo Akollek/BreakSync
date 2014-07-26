@@ -14,64 +14,115 @@
 
     .titleDiv{
     	padding-top: 150px;
+      height: 100vh;
     }
 
     .mainTitle {
-    width: 600px ;
-    margin:0 auto ;
-
-}
-
+    display: block;
+    
+  }
     .textColor{
     	text-align: center;
     	color: #C6C5C5;
     }
 
+    .redText{
+      color: #AA3939
+    }
+
     .mainPanel{
     	background-color: #AA3939;
     	border-radius: 5px;
+      width: 100%;
     }
+    .ourButton {
+      display: block;
+      background-color: #AA3939;
+      border-radius: 5px;
+      width: 100%;
+}
 
-      .Right{
-      text-align: right;
-    }
-    .Left{
-      text-align: left;
-    }
-    .ourButton{
-      width: 270px;
-    }
+  .aboutDiv{
+    padding-top: 50px;
+    height: 100vh;
+  }
+
+  .signUpDiv{
+    padding-top: 200px;
+    height: 100vh;
+  }
+
     </style>
+
   </head>
 
 
   <body>
+
+
+<section id="welcome"><a id="welcome"></a>
+
+
   	<div class="titleDiv">
       <div class="mainTitle">
-  		<div class="row">
-        
-  			<div class="large-12 columns">
-  				<div class="panel mainPanel">
-					<h1 class="textColor" style="color: #C6C5C5;">Welcome to BreakSync</h1>
-					<h4 class="textColor" style="color: #C6C5C5;">McGill&rsquo;s Schedule Syncer</h4>
-				</div>
-			</div>
-		</div>
-	</div>
-<div>
+  		  <div class="row">
+        <!--welcome-->
+  			  <div class="large-8 medium-12 large-centered columns"><a href="#about">
+  				  <div class="large-6 panel mainPanel">
+					     <h1 class="textColor" style="color: #C6C5C5;">Welcome to BreakSync</h1>
+					     <h4 class="textColor" style="color: #C6C5C5;">McGill&rsquo;s Schedule Syncer</h4>
+		        </div>
+          </div></a>
+
+          <!-- buttons -->
+          <div class="large-12 large-centred columns">
+            <div class="large-4 columns large-offset-2">
+              <a href="#" class="fill small radius button expand ourButton textColor">Login</a>
+            </div>
+            <div class="large-4 columns end">
+              <a href="#" class="fill small radius button expand ourButton textColor">Sign Up</a><br/>
+            </div>
+	        </div>
+      
+      </div>        
+    <div>
+
+</section>
+
+
+<section id="about"><a id="about"></a>
+<div class="aboutDiv">
+<div class="row">
+  <div class="large-10 large-centered columns">
+    <h2 class="redText">About BreakSync</h2>
+  </div>
+</div>
+<br>
+    <div class="large-12 large-centred columns">
+      <div class="large-6 columns ">
+        <p>Lorem ipsum dolor sit amet, cetero facilisis voluptatum ne pro, vel et ornatus noluisse. Vis nonumy senserit consetetur ea, cu congue labitur eum, dicit copiosae oportere ad has. Cum eu populo voluptua torquatos, ut mel meis volumus. Cum cu tantas nonumy sensibus, decore labores appetere nam ne, pro no nostro minimum. Ne his habeo tantas placerat, pro simul mollis maiorum no. Id erat melius detracto vel, sea eu oportere instructior.</p>
+
+        <p>Tempor moderatius eam ei. Doming patrioque vel no, mel ei nibh graece putent. Fugit alienum ei est, te timeam bonorum mea. At facilisis laboramus conceptam mea, at postea labitur accusam mea, magna movet reformidans eum id. Nec ad mucius volutpat conclusionemque. </p>
+
+        <p>Ut solet ocurreret vel, sed liber graece tacimates te. Id est nibh urbanitas, qui iisque patrioque conceptam ad. Iriure expetenda eu pri, no eum illud modus graeco. Qui sonet debitis comprehensam ne. An est feugiat legimus legendos. Ex rebum integre sadipscing vel. At eos appetere consectetuer, movet gubergren concludaturque ad nec.</p>
+      </div>
+      <div class="large-6 columns end">
+        <p>Reque nostro definitiones no qui. Ut inermis tractatos reprehendunt vel, mea id porro ridens epicurei. Diam delectus ut mei, id duo case vidisse, persius rationibus id quo. Qui ferri iriure interesset ex. In vivendo reformidans mel. Nonumes consulatu temporibus nec ut, dolores adolescens pri id.</p>
+
+        <p>Mel quas intellegat ea. Mei animal equidem evertitur no, oporteat facilisi ne his. Quo eu odio nobis praesent. Dolorem reformidans ne cum. Stet animal volumus quo ne, decore fabulas pri ei.</p>
+
+        <p>Per te iriure perpetua ocurreret, cum ea adhuc semper adipiscing, equidem gubergren expetendis et nam. In eos noster inermis probatus, no has partiendo suavitate. Eum at quando laudem partiendo. Vis ad unum scriptorem.</p>
+      </div>
+    </div>
+
+</div>
+</section>
+
+<section id="signup">
 
 
 
-
-	<body>
-		<div class="row">
-			<div class="large-6 medium-6 columns Right">
-				<a href="#" class="small radius button ourButton textColor mainPanel">Login</a><br/>
-			</div>
-			<div class="large-6 medium-6 columns Left">
-				<a href="#" class="small radius button ourButton textColor mainPanel">Sign Up</a><br/>
-			</div>
-		</div>
+</section>
   	</body>
 </html>
 
