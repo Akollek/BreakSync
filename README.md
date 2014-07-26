@@ -11,6 +11,6 @@ Run this command on the console when you `cd BreakSync`:
 How to run the server: `node server.js` and then navigate to the what prints out on the console.
 
 
-IDEA section:
+##### IDEA section:
 
--- have Michael work to create an app that pings you every time you step outside a class to tell you who is free
+- have Michael work to create an app that pings you every time you step outside a class to tell you who is free
