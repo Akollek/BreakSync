@@ -20,13 +20,7 @@ app.use(bodyParser());
 app.use(morgan());
 
 
-var router = express.Router();
-
-router.route('/').get(function (request, response) {
-	response.sendfile('/public/index.html')
-});
-
-
+require('./app/routes.js')(app);
 
 app.listen(port);
-console.log('Now listening localhost:'+port);
+console.log('Now listening localhost:' + port);
