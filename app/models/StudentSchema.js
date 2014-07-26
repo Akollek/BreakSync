@@ -7,6 +7,7 @@ var studentSchema = new Schema({
 	yearOfStudy: Number,
 	faculty: String
 	friends: Array
+	freeTimes: Array
 })
 
 
