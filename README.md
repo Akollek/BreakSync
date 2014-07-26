@@ -1,8 +1,10 @@
 BreakSync
 =========
 
+BreakSync is a website which allows McGill students to sign in using their minerva credentials and see when they and their friends have breaks at the same time.
 
-How to get started:  
+
+### How to get started:  
 Run this command on the console when you `cd BreakSync`:
 `npm install`. Thats it!  
 
