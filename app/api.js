@@ -4,15 +4,11 @@ module.exports=function(app){
 			mongoose= require('mongoose'),
 			dbconfig= require('../config/db.js');
 			Student = require('../app/models/StudentSchema');
-
+			Friends=require('../app/models/FriendSchema')
 	mongoose.connect(dbconfig().url);
 	console.log('CONNECTED TO DATABASE AT: ' + dbconfig().url);
 
 	var router = express.Router();
-
-	router.get('/', function(request, response){
-		response.json({message: "welcome to the API"});
-	})
 
 	router.route('/students')
 	.post(function(request, response){
