@@ -19,6 +19,9 @@ module.exports=function(app){
 		var student=new Student();
 
 		student.name=request.body.name;
+		student.gender=request.body.gender;
+		student.yearOfStudy=request.body.yearOfStudy
+		student.faculty=request.body.faculty
 
 		student.save(function(error){
 			if(error){
@@ -46,8 +49,58 @@ module.exports=function(app){
 			}
 			response.json(data)
 		});
+	
 	})
+	
+	router.route('/students/:parameter')
+	.get(function(request,response){
+		Student.findOne({
+			'name':request.params.parameter
+		}, function(error,data){
+			if(error){
+				response.json({
+					success:false,
+					message:'error occurred',
+					error:error
+				});
+			}
+			response.json(data);
+		})
+	})
+	router.route('/students/:me/add/:friendname')
+	.put(function(request,response){
+		Student.findOne({
+			'name':request.params.friendname
+		}, function(error,foundFriend){
+			if(error){
+				response.json({
+					success:false,
+					message:'error occurred',
+					error:error
+				});
+			}
+			
+			var foundFriendID=foundFriend._id
 
+			Student.findOne({
+				'name':request.params.me
+			}, function(error, meSelf){
+				//insert error check here
+				meSelf.friends.push(foundFriendID);
+				meSelf.save(function(error){
+					if(error){
+						response.json({
+							success:false,
+							message:'failed to save after adding friend'
+							error:error
+						});
+					}
+					response.json({message:'friend successfully added',success:true})
+				});
+			});
+			
+		});
+	})
 	app.use('/api', router)
 }
 
