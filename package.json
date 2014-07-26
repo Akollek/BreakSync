@@ -1,0 +1,9 @@
+{
+	"name": "BreakSync",
+	"main": "server.js",
+	"dependencies": {
+		"express": "4.0",
+		"mongoose": "~3.6.13",
+		"mcgill-minerva-api": "0.0.3"
+	}
+}
