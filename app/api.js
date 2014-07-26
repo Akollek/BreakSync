@@ -91,7 +91,7 @@ module.exports=function(app){
 					if(error){
 						response.json({
 							success:false,
-							message:'failed to save after adding friend'
+							message:'failed to save after adding friend',
 							error:error
 						});
 					}
