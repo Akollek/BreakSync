@@ -2,8 +2,8 @@ var mongoose=require('mongoose');
 var Schema = mongoose.Schema;
 
 var friendSchema = new Schema({
-	initiator: ObjectId,
-	reciever: ObjectId,
+	initiator: String,
+	receiver: String,
 	accepted: Boolean
 });
 

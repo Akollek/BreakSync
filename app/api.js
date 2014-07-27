@@ -13,11 +13,18 @@ module.exports=function(app){
 	router.route('/students')
 	.post(function(request, response){
 		var student=new Student();
-
-		student.name=request.body.name;
 		
-
-		student.save(function(error){
+		//this adds you as a person into the database		
+		student.bs_username=request.body.bs_username; //me
+		Student.findOne({bs_username: student.bs_username} , function(error, data){
+			if(data!==null){
+				response.json({
+					success:false,
+					message:'a user with this BreakSync username already exists'
+					
+				})
+			}
+			student.save(function(error){
 			if(error){
 				response.json({
 					success:false,
@@ -26,10 +33,12 @@ module.exports=function(app){
 				});
 			}
 
-			response.json({message:'Friend made!',success:true})
+			response.json({message:'You have been added as a BreakSync user to the database!',success:true})
+		})
 		})
 		
-
+		
+	
 		
 	})
 	.get(function(request, response){
@@ -46,10 +55,12 @@ module.exports=function(app){
 	
 	})
 	
+
+	//helps to find a particular student that you are looking for using bs_username
 	router.route('/students/:parameter')
 	.get(function(request,response){
 		Student.findOne({
-			'name':request.params.parameter
+			'bs_username':request.params.parameter
 		}, function(error,data){
 			if(error){
 				response.json({
@@ -61,36 +72,50 @@ module.exports=function(app){
 			response.json(data);
 		})
 	})
-	router.route('/students/:me/add/:friendname')
-	.put(function(request,response){
+
+	//this part initiates a friend request
+	router.route('/students/addfriend')
+	.post(function(request,response){
 		Student.findOne({
-			'name':request.params.friendname
+			'bs_username':request.body.friendname
 		}, function(error,foundFriend){
 			if(error){
 				response.json({
 					success:false,
-					message:'error occurred',
+					message:'the friend you are looking for is not found',
 					error:error
 				});
 			}
 			
-			var foundFriendID=foundFriend._id
-
 			Student.findOne({
-				'name':request.params.me
+				'bs_username':request.body.me
 			}, function(error, meSelf){
-				//insert error check here
-				meSelf.friends.push(foundFriendID);
-				meSelf.save(function(error){
+				if(error){
+					response.json({
+						success:false,
+						message:'there was an unexpected error - your record was not found',
+						error:error
+					})
+				}
+				
+				var friendrequest=new Friends()
+
+				friendrequest.initiator=meSelf._id
+				friendrequest.receiver=foundFriend._id
+				friendrequest.accepted=null
+				
+				friendrequest.save(function(error){
 					if(error){
 						response.json({
 							success:false,
-							message:'failed to save after adding friend',
+							message:'there was an error in sending the friend request',
 							error:error
-						});
+						})
 					}
-					response.json({message:'friend successfully added',success:true})
-				});
+							response.json({message:'friend request successfully sent',success:true})
+
+				})				
+
 			});
 			
 		});
@@ -98,3 +123,4 @@ module.exports=function(app){
 	app.use('/api', router)
 }
 
+//TODO: add a delete user function
