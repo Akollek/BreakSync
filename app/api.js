@@ -65,7 +65,7 @@ module.exports=function(app){
 	})
 
 	//this part initiates a friend request
-	router.route('/students/addfriend/')
+	router.route('/students/addfriend')
 	.post(function(request,response){
 		Student.findOne({
 			'bs_username':request.body.friendname
