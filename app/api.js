@@ -125,11 +125,12 @@ module.exports=function(app){
 
 	router.route('/students/friends')
 	.put(function(request,response){
-		Student.findById(request.body.friendrequestID, 
+		var id = mongoose.Types.ObjectId(request.body.friendrequestID);
+		Student.findById(id, 
 			function(error, friendrequest){
 				if(error){
 					response.json({
-						success:false
+						success:false,
 						message:'something failed on the server side to accept the friendrequest'
 					})
 				}
