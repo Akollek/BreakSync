@@ -16,10 +16,10 @@ module.exports=function(app){
 		
 		//this adds you as a person into the database		
 		student.bs_username=request.body.bs_username; //me
-		Student.find(function(data){
+		Student.findOne({bs_username: student.bs_username} , function(error, data){
 			if(data!==null){
 				response.json({
-					success:false
+					success:false,
 					message:'a user with this BreakSync username already exists'
 					
 				})
@@ -106,11 +106,11 @@ module.exports=function(app){
 				
 				friendrequest.save(function(error){
 					if(error){
-						response.json{
-							success:false
-							message:'there was an error in sending the friend request'
+						response.json({
+							success:false,
+							message:'there was an error in sending the friend request',
 							error:error
-						}
+						})
 					}
 							response.json({message:'friend request successfully sent',success:true})
 
