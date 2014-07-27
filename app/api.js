@@ -4,25 +4,19 @@ module.exports=function(app){
 			mongoose= require('mongoose'),
 			dbconfig= require('../config/db.js');
 			Student = require('../app/models/StudentSchema');
-
+			Friends=require('../app/models/FriendSchema')
 	mongoose.connect(dbconfig().url);
 	console.log('CONNECTED TO DATABASE AT: ' + dbconfig().url);
 
 	var router = express.Router();
 
-	router.get('/', function(request, response){
-		response.json({message: "welcome to the API"});
-	})
-
 	router.route('/students')
 	.post(function(request, response){
 		var student=new Student();
-
-		student.name=request.body.name;
-		student.gender=request.body.gender;
-		student.yearOfStudy=request.body.yearOfStudy
-		student.faculty=request.body.faculty
-
+		
+		//this adds you as a person into the database		
+		student.bs_username=request.body.bs_username; //me
+		
 		student.save(function(error){
 			if(error){
 				response.json({
@@ -32,10 +26,10 @@ module.exports=function(app){
 				});
 			}
 
-			response.json({message:'Friend made!',success:true})
+			response.json({message:'You added as a BreakSync user to the database!',success:true})
 		})
 		
-
+	//TODO: add a delete user function
 		
 	})
 	.get(function(request, response){
@@ -52,10 +46,12 @@ module.exports=function(app){
 	
 	})
 	
+
+	//helps to find a particular student that you are looking for using bs_username
 	router.route('/students/:parameter')
 	.get(function(request,response){
 		Student.findOne({
-			'name':request.params.parameter
+			'bs_username':request.params.parameter
 		}, function(error,data){
 			if(error){
 				response.json({
@@ -67,26 +63,40 @@ module.exports=function(app){
 			response.json(data);
 		})
 	})
+
+	//this part initiates a friend request
 	router.route('/students/:me/add/:friendname')
-	.put(function(request,response){
+	.post(function(request,response){
 		Student.findOne({
-			'name':request.params.friendname
+			'bs_username':request.body.friendname
 		}, function(error,foundFriend){
 			if(error){
 				response.json({
 					success:false,
-					message:'error occurred',
+					message:'the friend you are looking for is not found',
 					error:error
 				});
 			}
 			
-			var foundFriendID=foundFriend._id
-
 			Student.findOne({
-				'name':request.params.me
+				'bs_username':request.body.me
 			}, function(error, meSelf){
-				//insert error check here
-				meSelf.friends.push(foundFriendID);
+				if(error){
+					response.json({
+						success:false
+						message:'there was an unexpected error - your record was not found'
+						error:error
+					})
+				}
+				
+				var friendrequest=new Friends()
+
+				friendrequest.initiator=meSelf._id
+				friendrequest.receiver=foundFriend._id
+				friendrequest.accepted=null
+				
+				
+
 				meSelf.save(function(error){
 					if(error){
 						response.json({

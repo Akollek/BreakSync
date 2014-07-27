@@ -1,20 +1,15 @@
-var app = angular.module('bsApp', []);
+var app = angular.module('bsApp', ['bs.factories']);
 
-app.controller('bsController', [ '$scope', function($scope) {
-
-}]);
-
-app.factory('Student', ['$http', function ($http) {
-	var Student = {}
-	Student.signUp = function(data){
-		var formData = new FormData();
-		formData.append('key', value);
-		return $http.post('/api/students', formData);
+app.controller('bsController', [ '$scope','Student',  function($scope, Student) {
+	this.students = [];
+	this.me = {
+		name: 'ruichao'
 	}
-
-	Student.me = function(){
-		return $http.get('/api/students');
+	this.click = function(){
+	Student.searchAll().success(error, data){
+		this.students = data;
+		console.log(data);
 	}
-	
+	}
 }]);
 
