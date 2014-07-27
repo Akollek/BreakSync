@@ -126,8 +126,9 @@ module.exports=function(app){
 
 	router.route('/students/friends')
 	.put(function(request,response){
-		var id = mongoose.Types.ObjectId(request.body.friendrequestID);
-		Student.findById(id, 
+		var id = new mongoose.Types.ObjectId(request.body.friendrequestID);
+		console.log(id);
+		Friends.findById(id, 
 			function(error, friendrequest){
 				if(error){
 					response.json({
@@ -135,18 +136,34 @@ module.exports=function(app){
 						message:'something failed on the server side to accept the friendrequest'
 					})
 				}
+				console.log(friendrequest);
+				try{
 				friendrequest.accepted=true
-				response.json({message:'friend request has been accpeted', success:true})
+				friendrequest.save(function(error){
+					if(error){
+						response.json({message:'error occured, could not save', success:false})
+					}
+									response.json({message:'friend request has been accpeted', success:true})				
+				})
+
+				}catch(e){
+					response.json({message:'error occured, no friendrequest found', success:false})
+					console.log(e);
+				}
 			})
 	});//end put
 
 	
 	router.route('/students/friends/:me')
 	.get(function(request, response){
-		var me = request.params.parameter;
-		Friends.find().or([{initiator:me}, {receiver:me}]).exec(function(error, data){
-			response.json(data);
-		});
+		var me = request.params.me;
+		Student.findOne({bs_username:me}, function(error, meSelf){
+			var meId = meSelf._id;
+			Friends.find().or([{initiator:meId}, {receiver:meId}]).exec(function(error, data){
+				response.json(data);
+			});
+		})
+
 	});//end get
 
 	app.use('/api', router)
