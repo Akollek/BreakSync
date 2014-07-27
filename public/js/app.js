@@ -8,13 +8,17 @@ app.controller('bsController', [ '$scope','Student',  function($scope, Student) 
 		name: 'ruichao'
 	}
 
-	this.click = function(){
-	Student.searchAll().success(function(data){
-		students = data;
-		console.log(data);	
-	});
-	
-}
+	var loadAllStudents = function(){
+		Student.searchAll().success(function(data){
+			students = data;
+			console.log(data);	
+		});
+	}
+
+	this.reload = function(){
+		loadAllStudents();
+	}
+
 	this.search = function(){
 		Student.search('guy2').success(function(data){	
 		searchStudent=data;
@@ -27,7 +31,8 @@ app.controller('bsController', [ '$scope','Student',  function($scope, Student) 
 	this.getAllStudents = function(){
 		return students;
 	}
-	 
+	
+	loadAllStudents();	 
 
 }]);
 

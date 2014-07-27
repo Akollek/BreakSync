@@ -29,7 +29,10 @@ factories.factory('Student', ['$http', function ($http) {
 	}
 
 	Student.addFriend = function (initiator, receiver) {
-		return $http()
+		var formData = new FormData();
+		formData.append('me', initiator);
+		formData.append('friendname', receiver);
+		return $http.post('/api/students/addfriend/');
 	}
 
 	return Student;

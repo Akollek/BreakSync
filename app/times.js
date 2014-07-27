@@ -52,9 +52,8 @@ router.route('/times')
           };
         }
         response.json(toReturn);  });}
+      });
 
-
-				)
 	app.use('/minerva', router)
 		};
 			
