@@ -120,6 +120,24 @@ module.exports=function(app){
 			
 		});
 	})
+
+	//creating a put request to implement an update of the friend request accept status
+
+	router.route('/students/friends')
+	.put(function(request,response){
+		Student.findById(request.body.friendrequestID, 
+			function(error, friendrequest){
+				if(error){
+					response.json({
+						success:false
+						message:'something failed on the server side to accept the friendrequest'
+					})
+				}
+				friendrequest.accepted=true
+				response.json({message:'friend request has been accpeted', success:true})
+			})
+	})
+
 	app.use('/api', router)
 }
 
