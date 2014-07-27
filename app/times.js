@@ -18,34 +18,40 @@ router.route('/times')
 		var semester = request.body.semester;
 		var minerva = new Minerva(user, pass); 
 		if (semester) {
-			results=minerva.getCourses({    
+			var results=minerva.getCourses({    
 				dep: Subj,
     			number: Crse, 
     			season: 'f', 
     			year: '2014' 
-  			})}
+  			}).then(function(courses) {
+        if (courses.length==1) {
+          var toReturn=courses[0];
+        }
+        else{
+          var toReturn={};
+          for (var i = 0; i < toReturn[i]=courses.length; i++) {
+            toReturn[i]=courses[i];
+          };
+        }
+        response.json(toReturn);  });
+      }
   		else{
-  			results=minerva.getCourses({    
+  			var results=minerva.getCourses({    
 				dep: Subj,
     			number: Crse, 
     			season: 'w', 
     			year: '2015' 
-  			})}
-  		}
-
-  		results.then(function(courses) {
-  			if (courses.length==1) {
-  				var toReturn=courses[0];
-  			}
-  			else{
-  				var toReturn={};
-  				for (var i = 0; i < toReturn[i]=courses.length; i++) {
-  					toReturn[i]=courses[i];
-  				};
-  			}
-
-  			response.json(toReturn);	
-  		})
+  			}).then(function(courses) {
+        if (courses.length==1) {
+          var toReturn=courses[0];
+        }
+        else{
+          var toReturn={};
+          for (var i = 0; i < toReturn[i]=courses.length; i++) {
+            toReturn[i]=courses[i];
+          };
+        }
+        response.json(toReturn);  });}
 
 
 				)
