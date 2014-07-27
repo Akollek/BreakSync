@@ -1,44 +1,39 @@
+module.exports=function(app){
+
 var Minerva = require('mcgill-minerva-api');
-var user = 'amiel.kollek@mail.mcgill.ca'
-var pass =''
+var express = require('express')
+var session = require('express-session');
 
-var minerva = new Minerva(user, pass); // or store 'em in environment MG_USER & MG_PASS
-
-var ungradedCourses =[];
-var currentCourses
+var router = express.Router();
 
 
+router.route('/courses')
+	.post(function(request, response){
 
+		var user = request.body.username
+		var pass = request.body.password
 
-minerva.getTranscript().then(function(courses) {
-for (var i = 0; i < courses.length; i++) {
+		app.use(session({
+			secret: user+' '+pass
+		}));
+		
+		var ungradedCourses =[];
+		var coursesJson={};
+		var minerva = new Minerva(user, pass); 
 
-	if (courses[i].Grade==false) {
-		currentCourses.push(courses[i]);// get ungraded course
-	};
+		minerva.getTranscript().then(function(courses){
+			for (var i = 0; i < courses.length; i++){
+				if (courses[i].Grade == false){
+					ungradedCourses.push(courses[i]);
+				}
+			};
+			for (var i = 0; i < ungradedCourses.length; i++) {
+				coursesJson[i]=ungradedCourses[i];
+			};
+			
+			response.json(coursesJson);
+		});
+	});//end post
+app.use('/minerva', router)
 
-};
-	//console.log("Ungraded Courses")
-	//console.log(currentCourses)
-	//console.log("In Fall:")
-	return currentCourses;	
-}).then(function(currentCourses) {
-for (var i = 0; i < currentCourses.length; i++) {
-	console.log(''+currentCourses[i].Subj)
-	console.log(''+currentCourses[i].Crse)
-		minerva.getCourses({
-    		dep: ''+currentCourses[i].Subj,
-    		number: ''+currentCourses[i].Crse, 
-    		season: 'f', //fall hardcoded, lol
-    		year: '2014' //seach for classes in fall
-	}).then(function(courses) {
-
-		for (var i = 0; i < courses.length; i++) {
-			if(courses){ //check if it returned a course
-
-			}
-		};
-	})
-};
-})
-
+}

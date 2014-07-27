@@ -11,7 +11,6 @@ app.use(express.static(__dirname + '/public'));
 
 
 //SETTINGS
-var db = require('./config/db'); //database
 var port = process.env.PORT || 8080;
 
 //here we tell express to USE our middleware
@@ -22,5 +21,8 @@ app.use(morgan());
 
 require('./app/routes.js')(app);
 require('./app/api.js')(app);
+require('./app/courses.js')(app);
+require('./app/times.js')(app);
+
 app.listen(port);
 console.log('Now listening localhost:' + port);
