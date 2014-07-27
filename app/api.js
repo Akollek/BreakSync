@@ -83,8 +83,8 @@ module.exports=function(app){
 			}, function(error, meSelf){
 				if(error){
 					response.json({
-						success:false
-						message:'there was an unexpected error - your record was not found'
+						success:false,
+						message:'there was an unexpected error - your record was not found',
 						error:error
 					})
 				}

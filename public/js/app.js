@@ -6,10 +6,10 @@ app.controller('bsController', [ '$scope','Student',  function($scope, Student) 
 		name: 'ruichao'
 	}
 	this.click = function(){
-	Student.searchAll().success(error, data){
+	Student.searchAll().success(function(data){
 		this.students = data;
 		console.log(data);
-	}
+	});
 	}
 }]);
 
