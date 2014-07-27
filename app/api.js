@@ -124,7 +124,7 @@ module.exports=function(app){
 
 	//creating a put request to implement an update of the friend request accept status
 
-	router.route('/students/friends/:me')
+	router.route('/students/friends')
 	.put(function(request,response){
 		var id = mongoose.Types.ObjectId(request.body.friendrequestID);
 		Student.findById(id, 
@@ -138,7 +138,10 @@ module.exports=function(app){
 				friendrequest.accepted=true
 				response.json({message:'friend request has been accpeted', success:true})
 			})
-	})//end put
+	});//end put
+
+	
+	router.route('/students/friends/:me')
 	.get(function(request, response){
 		var me = request.params.parameter;
 		Friends.find().or([{initiator:me}, {receiver:me}]).exec(function(error, data){
