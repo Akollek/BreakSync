@@ -16,8 +16,15 @@ module.exports=function(app){
 		
 		//this adds you as a person into the database		
 		student.bs_username=request.body.bs_username; //me
-		
-		student.save(function(error){
+		Student.find(function(data){
+			if(data!==null){
+				response.json({
+					success:false
+					message:'a user with this BreakSync username already exists'
+					
+				})
+			}
+			student.save(function(error){
 			if(error){
 				response.json({
 					success:false,
@@ -26,10 +33,12 @@ module.exports=function(app){
 				});
 			}
 
-			response.json({message:'You added as a BreakSync user to the database!',success:true})
+			response.json({message:'You have been added as a BreakSync user to the database!',success:true})
+		})
 		})
 		
-	//TODO: add a delete user function
+		
+	
 		
 	})
 	.get(function(request, response){
@@ -96,7 +105,14 @@ module.exports=function(app){
 				friendrequest.accepted=null
 				
 				friendrequest.save(function(error){
-							response.json({message:'friend successfully added',success:true})
+					if(error){
+						response.json{
+							success:false
+							message:'there was an error in sending the friend request'
+							error:error
+						}
+					}
+							response.json({message:'friend request successfully sent',success:true})
 
 				})				
 
@@ -107,3 +123,4 @@ module.exports=function(app){
 	app.use('/api', router)
 }
 
+//TODO: add a delete user function
