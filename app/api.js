@@ -66,9 +66,9 @@ module.exports=function(app){
 
 	//this part initiates a friend request
 	router.route('/students/:me/add/:friendname')
-	.put(function(request,response){
+	.post(function(request,response){
 		Student.findOne({
-			'bs_username':request.params.friendname
+			'bs_username':request.body.friendname
 		}, function(error,foundFriend){
 			if(error){
 				response.json({
@@ -78,10 +78,8 @@ module.exports=function(app){
 				});
 			}
 			
-			var foundFriendID=foundFriend._id
-
 			Student.findOne({
-				'bs_username':request.params.me
+				'bs_username':request.body.me
 			}, function(error, meSelf){
 				if(error){
 					response.json({
@@ -90,7 +88,15 @@ module.exports=function(app){
 						error:error
 					})
 				}
-				meSelf.friends.push(foundFriendID);
+				
+				var friendrequest=new Friends()
+
+				friendrequest.initiator=meSelf._id
+				friendrequest.receiver=foundFriend._id
+				friendrequest.accepted=null
+				
+				
+
 				meSelf.save(function(error){
 					if(error){
 						response.json({
