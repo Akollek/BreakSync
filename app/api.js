@@ -103,7 +103,7 @@ module.exports=function(app){
 
 				friendrequest.initiator=meSelf._id
 				friendrequest.receiver=foundFriend._id
-				friendrequest.accepted=null
+				friendrequest.accepted=false
 				
 				friendrequest.save(function(error){
 					if(error){
