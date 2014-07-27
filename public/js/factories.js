@@ -25,14 +25,14 @@ factories.factory('Student', ['$http', function ($http) {
 	}
 
 	Student.searchAll = function () {
-		return $http.get('/api/students/');
+		return $http.get('/api/students');
 	}
 
 	Student.addFriend = function (initiator, receiver) {
 		return $http()
 	}
 
-
+	return Student;
 
 }]);
 
