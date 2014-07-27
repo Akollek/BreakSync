@@ -64,7 +64,7 @@ module.exports=function(app){
 		})
 	})
 
-
+	//this part initiates a friend request
 	router.route('/students/:me/add/:friendname')
 	.put(function(request,response){
 		Student.findOne({
@@ -73,7 +73,7 @@ module.exports=function(app){
 			if(error){
 				response.json({
 					success:false,
-					message:'error occurred',
+					message:'the friend you are looking for is not found',
 					error:error
 				});
 			}
@@ -81,9 +81,15 @@ module.exports=function(app){
 			var foundFriendID=foundFriend._id
 
 			Student.findOne({
-				'name':request.params.me
+				'bs_username':request.params.me
 			}, function(error, meSelf){
-				//insert error check here
+				if(error){
+					response.json({
+						success:false
+						message:'there was an unexpected error - your record was not found'
+						error:error
+					})
+				}
 				meSelf.friends.push(foundFriendID);
 				meSelf.save(function(error){
 					if(error){
