@@ -28,27 +28,34 @@
     .border{
       border-style:solid;
       border-color:#287EC7;
+      border-width: 1px 0px 0px 0px;
     } 
 
     .scheduleHeight{
       height: 66vh;
-      background: #AA3939;
+      
       padding: 0;
     }
     .timemarkers{
+      height: 3vh;
+      width: 100%;
+      padding: 0;
+      background: #AA3939;
+    }
+
+    .scheduleheaders{
       height: 6vh;
       width: 100%;
       padding: 0;
+      background: #AA3939;
     }
+
 
   </style>
 </head>
 <body ng-controller="bsController as Ctrl">
 
-
-  <div class="row">    
-
-    <div class="row">
+  <div class="row">  
     <div class="large-4 columns">
       <h1>Syncer</h1>
     </div>
@@ -59,68 +66,54 @@
       </ul>
     </div>
   </div>
-  
-    <button ng-click="Ctrl.click()">click here</button>
-    
 
-    <div class="large-12 push-4 columns">
-      
-      <h3>Schedule</h3>
-      
-        <div class="row" >
-
-          <div class="large-1 columns scheduleHeight ">
-            <div class="large-1 timemarkers border columns">Time</div>
-            <div class="large-1 timemarkers border columns">8:00</div>
-            <div class="large-1 timemarkers border columns">9:00</div>
-            <div class="large-1 timemarkers border columns">10:00</div>
-            <div class="large-1 timemarkers border columns">11:00</div>
-            <div class="large-1 timemarkers border columns">12:00</div>
-            <div class="large-1 timemarkers border columns">1:00</div>
-            <div class="large-1 timemarkers border columns">2:00</div>
-            <div class="large-1 timemarkers border columns">3:00</div>
-            <div class="large-1 timemarkers border columns">4:00</div>
-            <div class="large-1 timemarkers border columns end">5:00</div>
-          </div>
-
-          <div class="large-1 columns scheduleHeight">
-            <div class="large-1 timemarkers border columns">Mon</div>
-          </div>
-
-          <div class="large-1 columns scheduleHeight">
-            <div class="large-1 timemarkers border columns">Tue</div>
-          </div>
-
-          <div class="large-1 columns scheduleHeight">
-            <div class="large-1 timemarkers border columns">Wed</div>
-          </div>
-
-          <div class="large-1 columns scheduleHeight">
-            <div class="large-1 timemarkers border columns">Thur</div>
-          </div>
-
-          <div class="large-1 columns scheduleHeight">
-            <div class="large-1 timemarkers border columns">Fri</div>
-          </div>
-
-          <div class="large-1 columns scheduleHeight">
-            <div class="large-1 timemarkers border columns">Sat</div>
-          </div>
-
-          <div class="large-1 columns scheduleHeight end">
-            <div class="large-1 timemarkers border columns">Sun</div>
-          </div>
-
-        </div>
-            
+  <div class="row"> 
+    <div class="large-4 columns">
+      <button ng-click="Ctrl.click()">click here</button>
     </div>
-    
-    
+    <div class="large-8 columns" style="padding:0;">
+      <div class="large-2 columns scheduleHeight ">
+        <div class="large-2 scheduleheaders border columns">Time</div>
+        <div class="large-2 timemarkers border columns">8:00</div>
+        <div class="large-2 timemarkers border columns">8:30</div>
+        <div class="large-2 timemarkers border columns">9:00</div>
+        <div class="large-2 timemarkers border columns">9:30</div>
+        <div class="large-2 timemarkers border columns">10:00</div>
+        <div class="large-2 timemarkers border columns">10:30</div>
+        <div class="large-2 timemarkers border columns">11:00</div>
+        <div class="large-2 timemarkers border columns">11:30</div>
+        <div class="large-2 timemarkers border columns">12:00</div>
+        <div class="large-2 timemarkers border columns">12:30</div>
+        <div class="large-2 timemarkers border columns">1:00</div>
+        <div class="large-2 timemarkers border columns">1:30</div>
+        <div class="large-2 timemarkers border columns">2:00</div>
+        <div class="large-2 timemarkers border columns">2:30</div>
+        <div class="large-2 timemarkers border columns">3:00</div>
+        <div class="large-2 timemarkers border columns">3:30</div>
+        <div class="large-2 timemarkers border columns">4:00</div>
+        <div class="large-2 timemarkers border columns">4:30</div>
+        <div class="large-2 timemarkers border columns end">5:00</div>
+        <div class="large-2 timemarkers border columns end">5:30</div>
+      </div>
+      <div class="large-2 columns scheduleHeight">
+        <div class="large-2 scheduleheaders border columns">Mon</div>
+      </div>
+      <div class="large-2 columns scheduleHeight">
+        <div class="large-2 scheduleheaders border columns">Tue</div>
+      </div>
+      <div class="large-2 columns scheduleHeight">
+        <div class="large-2 scheduleheaders border columns">Wed</div>
+      </div>
+      <div class="large-2 columns scheduleHeight">
+        <div class="large-2 scheduleheaders border columns">Thur</div>
+      </div>
+      <div class="large-2 columns scheduleHeight">
+        <div class="large-2 scheduleheaders border columns">Fri</div>
+      </div>
+
+    </div>       
   </div>
     
-  
-   
-  
   <footer class="row">
     <div class="large-12 columns">
       <hr/>
