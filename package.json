@@ -1,12 +1,13 @@
 {
-	"name": "BreakSync",
-	"main": "server.js",
-	"dependencies": {
-		"express": "4.0",
-		"mongoose": "~3.6.13",
-		"mcgill-minerva-api": "0.0.3",
-		"body-parser": "1.5.0",
-		"morgan": "1.2.0",
-		"express-session": "1.7.1"
-	}
+  "name": "BreakSync",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "1.5.0",
+    "express": "4.0",
+    "express-session": "1.7.1",
+    "mongoose": "~3.6.13",
+    "morgan": "1.2.0",
+    "tough-cookie": "^0.12.1",
+    "request": "2.39.0"
+  }
 }
