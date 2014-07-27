@@ -29,7 +29,7 @@ module.exports=function(app){
 			response.json({message:'You added as a BreakSync user to the database!',success:true})
 		})
 		
-
+	//TODO: add a delete user function
 		
 	})
 	.get(function(request, response){
@@ -47,11 +47,11 @@ module.exports=function(app){
 	})
 	
 
-	//helps to find a particular student that you are looking for 
+	//helps to find a particular student that you are looking for using bs_username
 	router.route('/students/:parameter')
 	.get(function(request,response){
 		Student.findOne({
-			'name':request.params.parameter
+			'bs_username':request.params.parameter
 		}, function(error,data){
 			if(error){
 				response.json({
@@ -68,7 +68,7 @@ module.exports=function(app){
 	router.route('/students/:me/add/:friendname')
 	.put(function(request,response){
 		Student.findOne({
-			'name':request.params.friendname
+			'bs_username':request.params.friendname
 		}, function(error,foundFriend){
 			if(error){
 				response.json({
