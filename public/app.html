@@ -12,133 +12,109 @@
   <script src="js/app.js"></script>
   <style>
     body{
-    	background-color: #C6C5C5;
+      background-color: #C6C5C5;
     }
     .red{
-    	background-color: #AA3939;
-    	color:#C6C5C5;
+      background-color: #AA3939;
+      color:#C6C5C5;
     }
     .red a{
-    	color:#C6C5C5;
+      color:#C6C5C5;
     }
     .gridcolor{
       color:#C6C5C5;
     }
     
     .border{
-    border-style:solid;
-    border-color:#287EC7;
+      border-style:solid;
+      border-color:#287EC7;
     } 
+
+    .scheduleHeight{
+      height: 66vh;
+      background: #AA3939;
+      padding: 0;
+    }
+    .timemarkers{
+      height: 6vh;
+      width: 100%;
+      padding: 0;
+    }
 
   </style>
 </head>
 <body ng-controller="bsController as Ctrl">
 
-  <div class="row">
-    <div class="large-2 columns">
+
+  <div class="row">    
+
+    <div class="row">
+    <div class="large-4 columns">
       <h1>Syncer</h1>
     </div>
-    <div class="large-10 columns red">
+    <div class="large-8 columns red">
       <ul class="inline-list right">
-      	<li>{{Ctrl.me.name}}</li>
+        <li>{{Ctrl.me.name}}</li>
         <li><a href="#">Logout</a></li>
       </ul>
     </div>
   </div>
-  <button ng-click="Ctrl.click()">click here</button>
   
-  <div class="row">    
+    <button ng-click="Ctrl.click()">click here</button>
     
-     
-     
 
-
-
-    <div class="large-12 push-2 columns">
+    <div class="large-12 push-4 columns">
       
       <h3>Schedule</h3>
-      <div class="row" >
+      
         <div class="row" >
-        <div class="large-2 columns border">M</div>
-        <div class="large-2 columns border">T</div>
-        <div class="large-2 columns border">W</div>
-        <div class="large-2 columns border">R</div>
-        <div class="large-2 columns border end">F</div>
-      </div>
-      <div class="row" >
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red end">8:00-8:30</div>
-      </div>
-      <div class="row" >
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red end">8:00-8:30</div>
-      </div>
-      <div class="row" >
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red end">8:00-8:30</div>
-      </div>
-      <div class="row" >
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red end">8:00-8:30</div>
-      </div>
-      <div class="row" >
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red end">8:00-8:30</div>
-      </div>
-      <div class="row" >
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red end">8:00-8:30</div>
-      </div>
-      <div class="row" >
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red">8:00-8:30</div>
-        <div class="large-2 columns border red end">8:00-8:30</div>
-      </div>
-      </div>
-      
 
-      
-      
+          <div class="large-1 columns scheduleHeight ">
+            <div class="large-1 timemarkers border columns">Time</div>
+            <div class="large-1 timemarkers border columns">8:00</div>
+            <div class="large-1 timemarkers border columns">9:00</div>
+            <div class="large-1 timemarkers border columns">10:00</div>
+            <div class="large-1 timemarkers border columns">11:00</div>
+            <div class="large-1 timemarkers border columns">12:00</div>
+            <div class="large-1 timemarkers border columns">1:00</div>
+            <div class="large-1 timemarkers border columns">2:00</div>
+            <div class="large-1 timemarkers border columns">3:00</div>
+            <div class="large-1 timemarkers border columns">4:00</div>
+            <div class="large-1 timemarkers border columns end">5:00</div>
+          </div>
+
+          <div class="large-1 columns scheduleHeight">
+            <div class="large-1 timemarkers border columns">Mon</div>
+          </div>
+
+          <div class="large-1 columns scheduleHeight">
+            <div class="large-1 timemarkers border columns">Tue</div>
+          </div>
+
+          <div class="large-1 columns scheduleHeight">
+            <div class="large-1 timemarkers border columns">Wed</div>
+          </div>
+
+          <div class="large-1 columns scheduleHeight">
+            <div class="large-1 timemarkers border columns">Thur</div>
+          </div>
+
+          <div class="large-1 columns scheduleHeight">
+            <div class="large-1 timemarkers border columns">Fri</div>
+          </div>
+
+          <div class="large-1 columns scheduleHeight">
+            <div class="large-1 timemarkers border columns">Sat</div>
+          </div>
+
+          <div class="large-1 columns scheduleHeight end">
+            <div class="large-1 timemarkers border columns">Sun</div>
+          </div>
+
+        </div>
             
     </div>
     
-    
-     
-     
-    <div class="large-3 pull-9 columns">
-        
-      <ul class="side-nav">
-        <li><a href="#">Section 1</a></li>
-        <li><a href="#">Section 2</a></li>
-        <li><a href="#">Section 3</a></li>
-        <li><a href="#">Section 4</a></li>
-        <li><a href="#">Section 5</a></li>
-        <li><a href="#">Section 6</a></li>
-      </ul>
-      
-      <p><img src="http://placehold.it/320x240&text=Ad"/></p>
-        
-    </div>
     
   </div>
     
