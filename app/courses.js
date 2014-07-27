@@ -3,10 +3,6 @@ module.exports=function(app){
 var Minerva = require('mcgill-minerva-api');
 var express = require('express')
 
-
-
-
-
 var router = express.Router();
 
 
@@ -30,8 +26,8 @@ router.route('/courses')
 			};
 			
 			response.json(coursesJson);
-	}
-);
+		});
+	});//end post
 app.use('/minerva', router)
 
 }
