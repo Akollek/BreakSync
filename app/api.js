@@ -13,10 +13,10 @@ module.exports=function(app){
 	router.route('/students')
 	.post(function(request, response){
 		var student=new Student();
-
-		student.name=request.body.name;
 		
-
+		//this adds you as a person into the database		
+		student.bs_username=request.body.bs_username; //me
+		
 		student.save(function(error){
 			if(error){
 				response.json({
@@ -26,7 +26,7 @@ module.exports=function(app){
 				});
 			}
 
-			response.json({message:'Friend made!',success:true})
+			response.json({message:'You added as a BreakSync user to the database!',success:true})
 		})
 		
 
@@ -46,6 +46,8 @@ module.exports=function(app){
 	
 	})
 	
+
+	//helps to find a particular student that you are looking for 
 	router.route('/students/:parameter')
 	.get(function(request,response){
 		Student.findOne({
@@ -61,6 +63,8 @@ module.exports=function(app){
 			response.json(data);
 		})
 	})
+
+
 	router.route('/students/:me/add/:friendname')
 	.put(function(request,response){
 		Student.findOne({
