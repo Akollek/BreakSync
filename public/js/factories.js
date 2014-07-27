@@ -35,6 +35,11 @@ factories.factory('Student', ['$http', function ($http) {
 		return $http.post('/api/students/addfriend/');
 	}
 
+	Student.getFriends = function (username) {
+		return $http.get('http://localhost:8080/api/students/friends/' + username);
+	}
+
+
 	return Student;
 
 }]);
