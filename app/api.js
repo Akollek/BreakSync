@@ -65,7 +65,7 @@ module.exports=function(app){
 	})
 
 	//this part initiates a friend request
-	router.route('/students/:me/add/:friendname')
+	router.route('/students/addfriend')
 	.post(function(request,response){
 		Student.findOne({
 			'bs_username':request.body.friendname
@@ -95,18 +95,11 @@ module.exports=function(app){
 				friendrequest.receiver=foundFriend._id
 				friendrequest.accepted=null
 				
-				
+				friendrequest.save(function(error){
+							response.json({message:'friend successfully added',success:true})
 
-				meSelf.save(function(error){
-					if(error){
-						response.json({
-							success:false,
-							message:'failed to save after adding friend',
-							error:error
-						});
-					}
-					response.json({message:'friend successfully added',success:true})
-				});
+				})				
+
 			});
 			
 		});
