@@ -167,25 +167,6 @@ module.exports=function(app){
 
 	});//end get
 
-
-	/*var nameIdMapper = function(id){
-		//id is an ObjectId just use it to query the DB.
-
-		router.route('/students/:nameid')
-		.get(function(request,response){
-			Student.findById(id, function(error, person){
-				if(error){
-					response.json({message:'no student found with this id'
-					success:false
-					error:error	)}	
-				}
-				repsonse.json(person.bs_username)
-			})
-		})
-
-
-		return name;
-	}*/
 	app.use('/api', router)
 }
 
