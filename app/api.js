@@ -2,9 +2,10 @@ module.exports=function(app){
 
 	var express = require('express'),
 			mongoose= require('mongoose'),
-			dbconfig= require('../config/db.js');
-			Student = require('../app/models/StudentSchema');
-			Friends=require('../app/models/FriendSchema')
+			dbconfig= require('../config/db.js'),
+			Student = require('../app/models/StudentSchema'),
+			Friends=require('../app/models/FriendSchema');
+
 	mongoose.connect(dbconfig().url);
 	console.log('CONNECTED TO DATABASE AT: ' + dbconfig().url);
 
@@ -166,6 +167,12 @@ module.exports=function(app){
 
 	});//end get
 
+
+	var nameIdMapper = function(id){
+		//id is an ObjectId just use it to query the DB.
+
+		return name;
+	}
 	app.use('/api', router)
 }
 
