@@ -2,28 +2,30 @@ module.exports=function(app){
 
 	var express = require('express'),
 			mongoose= require('mongoose'),
-			dbconfig= require('../config/db.js');
-			Student = require('../app/models/StudentSchema');
+			dbconfig= require('../config/db.js'),
+			Student = require('../app/models/StudentSchema'),
+			Friends=require('../app/models/FriendSchema');
 
 	mongoose.connect(dbconfig().url);
 	console.log('CONNECTED TO DATABASE AT: ' + dbconfig().url);
 
 	var router = express.Router();
 
-	router.get('/', function(request, response){
-		response.json({message: "welcome to the API"});
-	})
-
 	router.route('/students')
 	.post(function(request, response){
 		var student=new Student();
-
-		student.name=request.body.name;
-		student.gender=request.body.gender;
-		student.yearOfStudy=request.body.yearOfStudy
-		student.faculty=request.body.faculty
-
-		student.save(function(error){
+		
+		//this adds you as a person into the database		
+		student.bs_username=request.body.bs_username; //me
+		Student.findOne({bs_username: student.bs_username} , function(error, data){
+			if(data!==null){
+				response.json({
+					success:false,
+					message:'a user with this BreakSync username already exists'
+					
+				})
+			}
+			student.save(function(error){
 			if(error){
 				response.json({
 					success:false,
@@ -32,10 +34,12 @@ module.exports=function(app){
 				});
 			}
 
-			response.json({message:'Friend made!',success:true})
+			response.json({message:'You have been added as a BreakSync user to the database!',success:true})
+		})
 		})
 		
-
+		
+	
 		
 	})
 	.get(function(request, response){
@@ -52,10 +56,12 @@ module.exports=function(app){
 	
 	})
 	
+
+	//helps to find a particular student that you are looking for using bs_username
 	router.route('/students/:parameter')
 	.get(function(request,response){
 		Student.findOne({
-			'name':request.params.parameter
+			'bs_username':request.params.parameter
 		}, function(error,data){
 			if(error){
 				response.json({
@@ -66,41 +72,121 @@ module.exports=function(app){
 			}
 			response.json(data);
 		})
-	})
-	router.route('/students/:me/add/:friendname')
-	.put(function(request,response){
+	});
+
+
+	//this part initiates a friend request
+	router.route('/students/addfriend')
+	.post(function(request,response){
 		Student.findOne({
-			'name':request.params.friendname
+			'bs_username':request.body.friendname
 		}, function(error,foundFriend){
 			if(error){
 				response.json({
 					success:false,
-					message:'error occurred',
+					message:'the friend you are looking for is not found',
 					error:error
 				});
 			}
 			
-			var foundFriendID=foundFriend._id
-
 			Student.findOne({
-				'name':request.params.me
+				'bs_username':request.body.me
 			}, function(error, meSelf){
-				//insert error check here
-				meSelf.friends.push(foundFriendID);
-				meSelf.save(function(error){
+				if(error){
+					response.json({
+						success:false,
+						message:'there was an unexpected error - your record was not found',
+						error:error
+					})
+				}
+				
+				var friendrequest=new Friends()
+
+				friendrequest.initiator=meSelf.bs_username
+				friendrequest.receiver=foundFriend.bs_username
+				friendrequest.accepted=false
+				
+				friendrequest.save(function(error){
 					if(error){
 						response.json({
 							success:false,
-							message:'failed to save after adding friend',
+							message:'there was an error in sending the friend request',
 							error:error
-						});
+						})
 					}
-					response.json({message:'friend successfully added',success:true})
-				});
+							response.json({message:'friend request successfully sent',success:true})
+
+				})				
+
 			});
 			
 		});
 	})
+
+	//creating a put request to implement an update of the friend request accept status
+
+	router.route('/students/friends')
+	.put(function(request,response){
+		var id = new mongoose.Types.ObjectId(request.body.friendrequestID);
+		console.log(id);
+		Friends.findById(id, 
+			function(error, friendrequest){
+				if(error){
+					response.json({
+						success:false,
+						message:'something failed on the server side to accept the friendrequest'
+					})
+				}
+				console.log(friendrequest);
+				try{
+				friendrequest.accepted=true
+				friendrequest.save(function(error){
+					if(error){
+						response.json({message:'error occured, could not save', success:false})
+					}
+									response.json({message:'friend request has been accpeted', success:true})				
+				})
+
+				}catch(e){
+					response.json({message:'error occured, no friendrequest found', success:false})
+					console.log(e);
+				}
+			})
+	});//end put
+
+	
+	router.route('/students/friends/:me')
+	.get(function(request, response){
+		var me = request.params.me;
+		Student.findOne({bs_username:me}, function(error, meSelf){
+			var meId = meSelf._id;
+			Friends.find().or([{initiator:meId}, {receiver:meId}]).exec(function(error, data){
+				response.json(data);
+			});
+		})
+
+	});//end get
+
+
+	/*var nameIdMapper = function(id){
+		//id is an ObjectId just use it to query the DB.
+
+		router.route('/students/:nameid')
+		.get(function(request,response){
+			Student.findById(id, function(error, person){
+				if(error){
+					response.json({message:'no student found with this id'
+					success:false
+					error:error	)}	
+				}
+				repsonse.json(person.bs_username)
+			})
+		})
+
+
+		return name;
+	}*/
 	app.use('/api', router)
 }
 
+//TODO: add a delete user function

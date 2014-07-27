@@ -6,6 +6,7 @@
 		"mongoose": "~3.6.13",
 		"mcgill-minerva-api": "0.0.3",
 		"body-parser": "1.5.0",
-		"morgan": "1.2.0"
+		"morgan": "1.2.0",
+		"express-session": "1.7.1"
 	}
 }
