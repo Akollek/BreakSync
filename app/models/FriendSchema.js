@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var friendSchema = new Schema({
 	initiator: String,
-	reciever: String,
+	receiver: String,
 	accepted: Boolean
 });
 
