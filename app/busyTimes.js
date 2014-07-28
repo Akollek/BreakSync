@@ -1,72 +1,80 @@
-var request = require('request');
-var htmlparser = require("htmlparser");
+module.exports=function(app){
 
-//for dev
-username='amiel.kollek@mail.mcgill.ca'
-password=''
-
-// URLS
-var base_url='https://horizon.mcgill.ca/'
-var login_url = base_url+'pban1/twbkwbis.P_ValLogin'
-var schedule_url = base_url+'pban1/bwskfshd.P_CrseSchdDetl'
+var express = require('express'),
+    request = require('request'),
+    htmlparser = require("htmlparser")
 
 
-// Cookie stuff - credit to mcgill-minerva-api for this part, https://github.com/charlespwd/mcgill-minerva-api
-var j = request.jar();
-var required_cookie = request.cookie('TESTID=set');
-j.setCookie(required_cookie, base_url); // set up the required cookie so that authentication works
+
+var router = express.Router();
+
+router.route('/busytimes').
+  post(function(request, response){
+
+  var user = request.body.username
+  var pass = request.body.password
+
+  // URLS
+  var base_url='https://horizon.mcgill.ca/'
+  var login_url = base_url+'pban1/twbkwbis.P_ValLogin'
+  var schedule_url = base_url+'pban1/bwskfshd.P_CrseSchdDetl'
 
 
-// POST options for login
-var login_options = {
-    url: login_url,
-    form:{
-      'sid':username,
-      'pin':password
-      },
-    jar: j
-    };
+  // Cookie stuff - credit to mcgill-minerva-api for this part, https://github.com/charlespwd/mcgill-minerva-api
+  var j = request.jar();
+  var required_cookie = request.cookie('TESTID=set');
+  j.setCookie(required_cookie, base_url); // set up the required cookie so that authentication works
+
+
+  // POST options for login
+  var login_options = {
+      url: login_url,
+      form:{
+        'sid':user,
+        'pin':pass
+        },
+      jar: j
+      };
 
 
 
 // Parsing stuff
 
-var handler = new htmlparser.DefaultHandler(function (error, dom) {
-    if (error)
-        console.log("Parsing Error!")
-    //else
-        //console.log("Parsing Sucessful!")
-});
-var parser = new htmlparser.Parser(handler);
+  var handler = new htmlparser.DefaultHandler(function (error, dom) {
+      if (error)
+          console.log("Parsing Error!")
+      //else
+          //console.log("Parsing Sucessful!")
+  });
+  var parser = new htmlparser.Parser(handler);
 
 
-
-function getTimes (doc,i) {
-  var times = [];
-  if (doc[i]["children"].length==6) {
-    var days =doc[i]["children"][4]["children"][3]["children"][0]["raw"]
-    var hours = doc[i]["children"][4]["children"][1]["children"][0]["raw"]
-    for (var i = 0; i < days.length; i++) {
-      times.push([days[i],hours])
-    };
-    return times;
+  function getTimes (doc,i) {
+    var times = [];
+    if (doc[i]["children"].length==6) {
+      var days =doc[i]["children"][4]["children"][3]["children"][0]["raw"]
+      var hours = doc[i]["children"][4]["children"][1]["children"][0]["raw"]
+      for (var i = 0; i < days.length; i++) {
+        times.push([days[i],hours])
+      };
+      return times;
+    }
+    else{
+      var days1=doc[i]["children"][4]["children"][3]["children"][0]["raw"]
+      var days2=doc[i]["children"][6]["children"][3]["children"][0]["raw"]
+      var hours1=doc[i]["children"][4]["children"][1]["children"][0]["raw"]
+      var hours2=doc[i]["children"][6]["children"][1]["children"][0]["raw"]
+      for (var i = 0; i < days1.length; i++) {
+        times.push([days1[i],hours1])
+      };
+      for (var i = 0; i < days2.length; i++) {
+        times.push([days2[i],hours2])
+      };
+      return times
+    }
   }
-  else{
-    var days1=doc[i]["children"][4]["children"][3]["children"][0]["raw"]
-    var days2=doc[i]["children"][6]["children"][3]["children"][0]["raw"]
-    var hours1=doc[i]["children"][4]["children"][1]["children"][0]["raw"]
-    var hours2=doc[i]["children"][6]["children"][1]["children"][0]["raw"]
-    for (var i = 0; i < days1.length; i++) {
-      times.push([days1[i],hours1])
-    };
-    for (var i = 0; i < days2.length; i++) {
-      times.push([days2[i],hours2])
-    };
-    return times
-  }
-}
 
-request.post(login_options,function(error, response, body) {
+  request.post(login_options,function(error, response, body) {
     // Set up options for getting schedule
 
     var schedule_options = {
@@ -105,7 +113,9 @@ request.post(login_options,function(error, response, body) {
           }
         };
         console.log(week)
-        
-})})
+        response.json(week)
+        })})
 
-
+      });
+      app.use('/minerva', router)
+  }
