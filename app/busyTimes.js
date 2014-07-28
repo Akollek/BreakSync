@@ -1,18 +1,19 @@
 module.exports=function(app){
 
 var express = require('express'),
-    request = require('request'),
+    req = require('request'),
     htmlparser = require("htmlparser")
 
 
 
 var router = express.Router();
 
-router.route('/busytimes').
-  post(function(request, response){
+router.route('/busytimes').post(function(request, response){
 
-  var user = request.body.username
-  var pass = request.body.password
+  var username = request.body.username
+  var password = request.body.password
+
+  console.log(request.body) //This prints '{}' !?!
 
   // URLS
   var base_url='https://horizon.mcgill.ca/'
@@ -21,8 +22,8 @@ router.route('/busytimes').
 
 
   // Cookie stuff - credit to mcgill-minerva-api for this part, https://github.com/charlespwd/mcgill-minerva-api
-  var j = request.jar();
-  var required_cookie = request.cookie('TESTID=set');
+  var j = req.jar();
+  var required_cookie = req.cookie('TESTID=set');
   j.setCookie(required_cookie, base_url); // set up the required cookie so that authentication works
 
 
@@ -30,8 +31,8 @@ router.route('/busytimes').
   var login_options = {
       url: login_url,
       form:{
-        'sid':user,
-        'pin':pass
+        'sid':username,
+        'pin':password
         },
       jar: j
       };
@@ -43,8 +44,8 @@ router.route('/busytimes').
   var handler = new htmlparser.DefaultHandler(function (error, dom) {
       if (error)
           console.log("Parsing Error!")
-      //else
-          //console.log("Parsing Sucessful!")
+      else
+          console.log("Parsing Sucessful!")
   });
   var parser = new htmlparser.Parser(handler);
 
@@ -74,7 +75,7 @@ router.route('/busytimes').
     }
   }
 
-  request.post(login_options,function(error, response, body) {
+  req.post(login_options,function(error, resp, body) {
     // Set up options for getting schedule
 
     var schedule_options = {
@@ -87,7 +88,7 @@ router.route('/busytimes').
             },
           };
           //console.log(j.getCookieString(base_url))
-      request.post(schedule_options,function(error, response, body){ // post to get schedule
+      req.post(schedule_options,function(error, resp, body){ // post to get schedule
         //console.log(body) //parse here
         parser.parseComplete(body);
         //since only second one with children will have a schedule time, we can toggle this varaible
@@ -100,7 +101,7 @@ router.route('/busytimes').
           "R":[],
           "F":[]
         }
-
+        //console.log(body)
         for (var i = 4; i < base_doc.length; i++) {
           if(base_doc[i]["children"]){
             times = !times
@@ -113,9 +114,10 @@ router.route('/busytimes').
           }
         };
         console.log(week)
-        response.json(week)
+        response.send(JSON.stringify(week))
         })})
 
       });
       app.use('/minerva', router)
   }
+

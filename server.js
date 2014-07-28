@@ -21,8 +21,7 @@ app.use(morgan());
 
 require('./app/routes.js')(app);
 require('./app/api.js')(app);
-require('./app/courses.js')(app);
-require('./app/times.js')(app);
+require('./app/busyTimes.js')(app);
 
 app.listen(port);
 console.log('Now listening localhost:' + port);
