@@ -13,8 +13,6 @@ router.route('/busytimes').post(function(request, response){
   var username = request.body.username
   var password = request.body.password
 
-  console.log(request.body) //This prints '{}' !?!
-  //This prints my username and password fine!
 
   // URLS
   var base_url='https://horizon.mcgill.ca/'
@@ -44,13 +42,12 @@ router.route('/busytimes').post(function(request, response){
 
   var handler = new htmlparser.DefaultHandler(function (error, dom) {
       if (error)
-          console.log("Parsing Error!")
-      else
-          console.log("Parsing Sucessful!")
+        response.json({success:false,message:'Parsing failed.'});
   });
+
   var parser = new htmlparser.Parser(handler);
 
-
+  //not even going to look at this complex logic! :O
   function getTimes (doc,i) {
     var times = [];
     if (doc[i]["children"].length==6) {
@@ -79,6 +76,10 @@ router.route('/busytimes').post(function(request, response){
   req.post(login_options,function(error, resp, body) {
     // Set up options for getting schedule
 
+    if(error){
+      response.json({success:false,message:'An unknown error occured.', error: error});
+    }
+
     var schedule_options = {
           url: schedule_url,
           headers:{
@@ -91,6 +92,10 @@ router.route('/busytimes').post(function(request, response){
           //console.log(j.getCookieString(base_url))
       req.post(schedule_options,function(error, resp, body){ // post to get schedule
         //console.log(body) //parse here
+
+        if(error)
+          response.json({success:false, message:'An unknown error occured', error:error});
+
         parser.parseComplete(body);
         //since only second one with children will have a schedule time, we can toggle this varaible
         times = true
@@ -114,7 +119,7 @@ router.route('/busytimes').post(function(request, response){
             };
           }
         };
-        console.log(week)
+
         response.json(week)
         })})
 
