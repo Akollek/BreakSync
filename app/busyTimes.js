@@ -14,6 +14,7 @@ router.route('/busytimes').post(function(request, response){
   var password = request.body.password
 
   console.log(request.body) //This prints '{}' !?!
+  //This prints my username and password fine!
 
   // URLS
   var base_url='https://horizon.mcgill.ca/'
@@ -114,7 +115,7 @@ router.route('/busytimes').post(function(request, response){
           }
         };
         console.log(week)
-        response.send(JSON.stringify(week))
+        response.json(week)
         })})
 
       });
