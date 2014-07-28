@@ -11,7 +11,7 @@ var login_url = base_url+'pban1/twbkwbis.P_ValLogin'
 var schedule_url = base_url+'pban1/bwskfshd.P_CrseSchdDetl'
 
 
-// Cookie stuff
+// Cookie stuff - credit to mcgill-minerva-api for this part, https://github.com/charlespwd/mcgill-minerva-api
 var j = request.jar();
 var required_cookie = request.cookie('TESTID=set');
 j.setCookie(required_cookie, base_url); // set up the required cookie so that authentication works
@@ -42,17 +42,29 @@ var parser = new htmlparser.Parser(handler);
 
 
 function getTimes (doc,i) {
+  var times = [];
   if (doc[i]["children"].length==6) {
-    return doc[i]["children"][4]["children"][3]["children"][0]["raw"]+" -- "+doc[i]["children"][4]["children"][1]["children"][0]["raw"]
+    var days =doc[i]["children"][4]["children"][3]["children"][0]["raw"]
+    var hours = doc[i]["children"][4]["children"][1]["children"][0]["raw"]
+    for (var i = 0; i < days.length; i++) {
+      times.push([days[i],hours])
+    };
+    return times;
   }
   else{
-    first=doc[i]["children"][4]["children"][3]["children"][0]["raw"]+" -- "+doc[i]["children"][4]["children"][1]["children"][0]["raw"]
-    second=doc[i]["children"][6]["children"][3]["children"][0]["raw"]+" -- "+doc[i]["children"][6]["children"][1]["children"][0]["raw"]
-    return first+"\n"+second
+    var days1=doc[i]["children"][4]["children"][3]["children"][0]["raw"]
+    var days2=doc[i]["children"][6]["children"][3]["children"][0]["raw"]
+    var hours1=doc[i]["children"][4]["children"][1]["children"][0]["raw"]
+    var hours2=doc[i]["children"][6]["children"][1]["children"][0]["raw"]
+    for (var i = 0; i < days1.length; i++) {
+      times.push([days1[i],hours1])
+    };
+    for (var i = 0; i < days2.length; i++) {
+      times.push([days2[i],hours2])
+    };
+    return times
   }
 }
-
-
 
 request.post(login_options,function(error, response, body) {
     // Set up options for getting schedule
@@ -72,18 +84,27 @@ request.post(login_options,function(error, response, body) {
         parser.parseComplete(body);
         //since only second one with children will have a schedule time, we can toggle this varaible
         times = true
-        classes=[]
         base_doc=handler.dom[2]["children"][3]["children"][5]["children"]
-        //console.log(base_doc[17]["children"][6]["children"][3]["children"][0]["raw"])
+        var week={
+          "M":[],
+          "T":[],
+          "W":[],
+          "R":[],
+          "F":[]
+        }
+
         for (var i = 4; i < base_doc.length; i++) {
           if(base_doc[i]["children"]){
             times = !times
             if (times && base_doc[i]["children"].length > 5) {
-              console.log(getTimes(base_doc,i))
-
+              var busy = getTimes(base_doc,i)
+              for (var j = 0; j < busy.length; j++) {
+                week[busy[j][0]].push(busy[j][1])
+              };
             };
           }
         };
+        console.log(week)
         
 })})
 
