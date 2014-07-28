@@ -74,24 +74,30 @@ router.route('/busytimes').post(function(request, response){
   }
 
   req.post(login_options,function(error, resp, body) {
-    // Set up options for getting schedule
+
 
     if(error){
       response.json({success:false,message:'An unknown error occured.', error: error});
     }
+    var cookie_string=j.getCookieString(base_url)
 
+    // Check if login was successful
+    var auth =  new RegExp("SESSID=")
+    if (!auth.test(cookie_string))
+      response.json({success:false,message:"Incorrect McGill username or password"})
+
+    // Set up options for getting schedule
     var schedule_options = {
           url: schedule_url,
           headers:{
-                "Cookie": j.getCookieString(base_url)
+                "Cookie": cookie_string
             },
           form:{
               'term_in':'201409' // fall hardcoded here.
             },
           };
-          //console.log(j.getCookieString(base_url))
+
       req.post(schedule_options,function(error, resp, body){ // post to get schedule
-        //console.log(body) //parse here
 
         if(error)
           response.json({success:false, message:'An unknown error occured', error:error});
@@ -107,7 +113,6 @@ router.route('/busytimes').post(function(request, response){
           "R":[],
           "F":[]
         }
-        //console.log(body)
         for (var i = 4; i < base_doc.length; i++) {
           if(base_doc[i]["children"]){
             times = !times
@@ -120,7 +125,7 @@ router.route('/busytimes').post(function(request, response){
           }
         };
 
-        response.json(week)
+        response.json({sucess:true,busy:week})
         })})
 
       });
