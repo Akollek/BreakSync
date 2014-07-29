@@ -83,6 +83,12 @@
         <li ng-repeat="student in Ctrl.getAllStudents() | filter:yourName">{{student.bs_username}}</li>
       </ul>
       <button class="button tiny" ng-click="Ctrl.search()">search</button>    
+      // add form  and waiting for username and password  and return busytime json
+      <form action="/minerva/busytimes" method="post">
+        <input type="text" name="username" >
+        <input type="text" name="password">
+        <input type="submit">
+      </form>
     </div>
     <div class="large-8 columns" style="padding:0;">
       <div class="large-2 columns scheduleHeight ">
