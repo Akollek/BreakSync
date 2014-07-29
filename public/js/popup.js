@@ -12,3 +12,10 @@ function next (current, next) {
 	document.getElementById(current).style.display= "none";
 	document.getElementById(next).style.display = "block";
 }
+
+function scroll(elem){
+	$('html, body').animate({
+    scrollTop: $("#"+elem).offset().top
+}, 1000);
+}
+
