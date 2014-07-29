@@ -73,10 +73,10 @@
           <!-- buttons -->
           <div class="large-12 large-centred columns">
             <div class="large-4 columns large-offset-2">
-              <a href="#" class="fill small radius button expand ourButton textColor">Login</a>
+              <a href="#" onclick='reveal(document.getElementById("loginModal"));' class="fill small radius button expand ourButton textColor">Login</a>
             </div>
             <div class="large-4 columns end">
-              <a href="#" onclick='reveal();' class="fill small radius button expand ourButton textColor">Sign Up</a><br/>
+              <a href="#" onclick='reveal(document.getElementById("signupModal"));' class="fill small radius button expand ourButton textColor">Sign Up</a><br/>
             </div>
 	        </div>
       
@@ -112,7 +112,7 @@
 
         <p>Per te iriure perpetua ocurreret, cum ea adhuc semper adipiscing, equidem gubergren expetendis et nam. In eos noster inermis probatus, no has partiendo suavitate. Eum at quando laudem partiendo. Vis ad unum scriptorem.</p>
 
-        <div style="padding-top:40px; text-size:115%;"> What are you waiting for? <a href="#" onclick='reveal();' class="small radius button buttomButton textColor">Sign Up</a><br/></div>
+        <div style="padding-top:40px; text-size:115%;"> What are you waiting for? <a href="#" onclick='reveal(document.getElementById("signupModal"));' class="small radius button buttomButton textColor">Sign Up</a><br/></div>
       </div>
     </div>
 
@@ -120,33 +120,65 @@
 </section>
 
 
-<section id="signup">
-<div id="modal">
+<section id="modals">
 
-<div id="signupForm">
+  <div id="loginModal">
+<div id="loginForm">
+
 <form role="form">
         <div class="form-group">
-           <button class="btn tiny" onclick="hide();">x</button>
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Mcgill email">
+           <button class="btn tiny" onclick="hide(document.getElementById('loginModal'));">x</button>
+          <label for="exampleInputEmail1">Username</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="BreakSync Username">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <div class="form-group">
-          <label for="exampleInputUser1">Nick Name</label>
-          <p class="help-block">(Optional)</p>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter nick name">
-
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Login</button>
       </form>
-</div>
-
-
 
 </div>
+
+
+
+</div>
+<div id="signupModal">
+
+
+<form role="form">
+  <div id="breaksyncForm">
+        <div class="form-group">
+           <button class="btn tiny" onclick="hide(document.getElementById('signupModal'));">x</button>
+          <label for="exampleInputEmail1">Username (this is how your friends will find you)</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Please choose a BreakSync username">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <button onclick="next('breaksyncForm','mcgillForm');"
+        class="btn btn-default">Next</button>
+
+</div>
+<div id="mcgillForm">
+        <div class="form-group">
+           <button class="btn tiny" onclick="hide(document.getElementById('signupModal'));">x</button>
+          <label for="exampleInputEmail1">McGill email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Please enter your McGill email">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+
+        <div id="mcgillCreds"><em>For your safetly, BreakSync does not store any of your McGill information.</em></div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+      </form>
+
+
 
 </section>
 

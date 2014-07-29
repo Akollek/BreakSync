@@ -53,7 +53,7 @@ border-radius: 5px;
 /* Signup Modal */
 
 
-#modal{
+#signupModal{
   display: none;
   width: 100%;
   height: 100%;
@@ -65,7 +65,47 @@ border-radius: 5px;
   overflow:auto;
 }
 
-#signupForm{
+#breaksyncForm{
+  position: absolute; 
+  left: 30%;
+  top: 17%;
+  background-color: #C6C5C5;
+  border: 2px black;
+  border-radius: 10px;
+  width: 40%;
+  height: 60%;
+  opacity: 100%;
+  display: block;
+}
+
+#mcgillForm{
+  position: absolute; 
+  left: 30%;
+  top: 17%;
+  background-color: #C6C5C5;
+  border: 2px black;
+  border-radius: 10px;
+  width: 40%;
+  height: 60%;
+  opacity: 100%;
+  display: none;
+}
+
+
+/* Login Modal */
+#loginModal{
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(19,19,19,0.8);
+  top: 0;
+  left: 0;
+  display: none;
+  position: fixed;      
+  overflow:auto;
+}
+
+#loginForm{
   position: absolute; 
   left: 30%;
   top: 17%;
@@ -77,6 +117,11 @@ border-radius: 5px;
   opacity: 100%;
 }
 
+div#mcgillCreds{
+  font-size: 70%;
+  opacity:0.9;
+  padding-bottom: 10px;
+}
 
 
 
