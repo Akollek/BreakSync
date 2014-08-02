@@ -29,7 +29,7 @@ module.exports=function(app){
 			if(error){
 				response.json({
 					success:false,
-					message:'error occurred',
+					message:'error occurred - could not add person to the database',
 					error:error
 				});
 			}
@@ -41,7 +41,7 @@ module.exports=function(app){
 		
 	
 		
-	})
+	})  //look into getting rid of this
 	.get(function(request, response){
 		Student.find(function(error,data){
 			if(error){
@@ -128,7 +128,7 @@ module.exports=function(app){
 	router.route('/students/friends')
 	.put(function(request,response){
 		var id = new mongoose.Types.ObjectId(request.body.friendrequestID);
-		console.log(id);
+		console.log(id); //for debugging
 		Friends.findById(id, 
 			function(error, friendrequest){
 				if(error){
