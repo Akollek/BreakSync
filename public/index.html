@@ -10,8 +10,6 @@
     <script src="js/foundation.min.js"></script>
     <script src="js/app.js"></script>
 	<script src="js/vendor/jquery.js"></script>
-	<!--script src="js/bootstrap.js"></script-->
-	<!--script src="css/bootstrap.css"></script-->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
    <link rel="stylesheet" type="text/css" href="css/index.css">
   <script type="text/javascript" src="js/popup.js"></script>
@@ -23,40 +21,6 @@
 
 
 <section id="welcome"><a id="welcome"></a>
-
-
-  <!-- Modal >
-  <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Sign Up</h4>
-        </div>
-        <div class="modal-body">
-			<form role="form">
-				<div class="form-group">
-					<label for="exampleInputEmail1">Email address</label>
-					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Mcgill email">
-				</div>
-				<div class="form-group">
-					<label for="exampleInputPassword1">Password</label>
-					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-				</div>
-				<div class="form-group">
-					<label for="exampleInputUser1">Nick Name</label>
-					<p class="help-block">(Optional)</p>
-					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter nick name">
-
-				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
-			</form>
-
-
-        </div>
-      </div><!-- /.modal-content -->
-    <!--/div><!-- /.modal-dialog -->
-  <!--/div><!-- /.modal -->
 
 <div class="titleDiv"
 
@@ -128,14 +92,14 @@
 <form role="form" class="modalForm">
         <div class="form-group">
            <button class="tiny radius button textColor" onclick="hide(document.getElementById('loginModal'));">x</button>
-          <label for="exampleInputEmail1">Username</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="BreakSync Username">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="BreakSync Username">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-default">Login</button>
+        <button type="submit" class="button button-default">Login</button>
       </form>
 
   </div>
@@ -146,33 +110,33 @@
 <form role="form" >
   <div id="breaksyncForm" class="modalForm">
         <div class="form-group">
-           <button class="btn tiny" onclick="hide(document.getElementById('signupModal'));">x</button>
-          <label for="exampleInputEmail1">Username (this is how your friends will find you)</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Please choose a BreakSync username">
+           <button class="button tiny" onclick="hide(document.getElementById('signupModal'));">x</button>
+          <label for="username">Username (this is how your friends will find you)</label>
+          <input type="text" class="form-control" id="username" placeholder="Please choose a BreakSync username">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password">
         </div>
         <button onclick="next('breaksyncForm','mcgillForm');"
-        class="btn btn-default">Next</button>
+        class="button button-default">Next</button>
 
   </div>
   <div id="mcgillForm" class="modalForm">
         <div class="form-group">
-           <button class="btn tiny" onclick="hide(document.getElementById('signupModal'));">x</button>
-          <label for="exampleInputEmail1">McGill email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Please enter your McGill email">
+           <button class="button tiny" onclick="hide(document.getElementById('signupModal'));">x</button>
+          <label for="mcgillEmail">McGill email address</label>
+          <input type="email" class="form-control" id="mcgillEmail" placeholder="Please enter your McGill email">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">McGill Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="McGill Password">
+          <label for="mcgillPassword">McGill Password</label>
+          <input type="password" class="form-control" id="mcgillPassword" placeholder="McGill Password">
         </div>
 
         <div id="mcgillCreds"><em>For your safetly, BreakSync does not store any of your McGill information.</em></div>
         <button onclick="next('mcgillForm','breaksyncForm');"
-        class="btn btn-default">Back</button>
-        <button type="submit" class="btn btn-default">Submit</button>
+        class="button button-default">Back</button>
+        <button type="submit" class="button button-default">Submit</button>
       </div>
 </form>
 </div>
