@@ -2,9 +2,10 @@ module.exports=function(app){
 
 var express = require('express'),
     req = require('request'),
-    htmlparser = require("htmlparser")
+    htmlparser = require("htmlparser"),
+    flash = require('connect-flash')
 
-
+app.use(flash());
 
 var router = express.Router();
 
@@ -125,7 +126,10 @@ router.route('/busytimes').post(function(request, response){
           }
         };
 
-        response.json({sucess:true,busy:week})
+        //response.json({sucess:true,busy:week})
+        console.log({sucess:true,busy:week})
+        request.flash('Test')
+        response.redirect('back')
         })})
 
       });
