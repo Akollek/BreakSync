@@ -107,7 +107,7 @@
 
 
 <div id="signupModal">
-<form role="form" >
+<form role="BSform" method='post' action='mongodb://bsuser:bsbsbsb@kahana.mongohq.com:10068/breaksync_db/students' >
   <div id="breaksyncForm" class="modalForm">
         <div class="form-group">
            <button class="button tiny" onclick="hide(document.getElementById('signupModal'));">x</button>
@@ -118,10 +118,11 @@
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" placeholder="Password">
         </div>
-        <button onclick="next('breaksyncForm','mcgillForm');"
-        class="button button-default">Next</button>
-
+        <input type='submit' value='Next'
+        class="button button-default">
+</form>
   </div>
+  <form role="McGillForm" method='post' action='/minerva/busyTimes.js'>
   <div id="mcgillForm" class="modalForm">
         <div class="form-group">
            <button class="button tiny" onclick="hide(document.getElementById('signupModal'));">x</button>
@@ -136,7 +137,7 @@
         <div id="mcgillCreds"><em>For your safetly, BreakSync does not store any of your McGill information.</em></div>
         <button onclick="next('mcgillForm','breaksyncForm');"
         class="button button-default">Back</button>
-        <button type="submit" class="button button-default">Submit</button>
+        <input type="submit" value='Submit' class="button button-default">
       </div>
 </form>
 </div>
