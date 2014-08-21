@@ -9,6 +9,7 @@
     "morgan": "1.2.0",
     "tough-cookie": "^0.12.1",
     "request": "2.39.0",
-    "htmlparser": "1.7.7"
+    "htmlparser": "1.7.7",
+    "connect-flash": "0.1.1"
   }
 }
